@@ -24,17 +24,21 @@
   (define ff-map (build-flow-function-map pda-risc-enh))
 
   (define (flow t)
-    (lambda (ctx sigma st)
-      ;; (printf "-------------------------------------------------------------------------------\n")
-      ;; (printf "  ctx: ~a\n" ctx)
-      ;; (printf "  t: ~a\n" t)
-      ;; (printf "  sigma: ~a\n" sigma)
-      ((hash-ref ff-map t) ctx sigma st)))
+    (hash-ref ff-map t)
+    ;; (lambda (ctx sigma st)
+    ;;   (printf "-------------------------------------------------------------------------------\n")
+    ;;   (printf "  ctx: ~a\n" ctx)
+    ;;   (printf "  t: ~a\n" t)
+    ;;   (printf "  sigma: ~a\n" sigma)
+    ;;   ((hash-ref ff-map t) ctx sigma st))
+    )
   (define init-config (init-configuration register-count))
 
   (FlowAnalysis flow
                 flow-ctx
                 flow-across
+                ctx-gte?
+                abstract-state-gte?
                 (set (list init-ctx init-astate init-term))
                 init-config
                 initial-ctx-state))
