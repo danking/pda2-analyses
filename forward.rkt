@@ -33,6 +33,7 @@
     ;;   ((hash-ref ff-map t) ctx sigma st))
     )
   (define init-config (init-configuration register-count))
+  (define init-ctx-state (initial-ctx-state))
 
   (FlowAnalysis flow
                 flow-ctx
@@ -41,4 +42,4 @@
                 abstract-state-gte?
                 (set (list init-ctx init-astate init-term))
                 init-config
-                initial-ctx-state))
+                init-ctx-state))
