@@ -21,10 +21,13 @@
   (define register-count (pdarisc-reg-uid pda-risc-enh))
   (define init-term (pda-risc-enh-initial-term pda-risc-enh))
 
-  (define ff-map (build-flow-function-map pda-risc-enh))
+  (define initial-basic-block (create-basic-blocks pda-risc-enh))
 
-  (define (flow t)
-    (hash-ref ff-map t)
+  (define-values (ff-map ff-ctx-map)
+    (build-flow-function-map initial-basic-block))
+
+  (define (flow bb)
+    (hash-ref ff-map bb)
     ;; (lambda (ctx sigma st)
     ;;   (printf "-------------------------------------------------------------------------------\n")
     ;;   (printf "  ctx: ~a\n" ctx)
